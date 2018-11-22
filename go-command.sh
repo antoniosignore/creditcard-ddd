@@ -1,0 +1,1 @@
+java -Dspring.profiles.active=command -jar creditcard-distributed-1.0.jar
