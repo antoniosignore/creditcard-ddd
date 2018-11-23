@@ -82,7 +82,23 @@ mvnw clean package
 Note that for Mac OSX or Linux you probably have to add "`./`" in front of `mvnw`.
 
 
-### Running the Credit Card app
+# Running the Credit Card app
+
+### Running Axon Server
+
+By default the Axon Framework is configured to expect a running Axon Server instance, and it will complain if the server is not found. To run Axon Server, you'll need a Java runtime (JRE versions 8 through 10 are currently supported, Java 11 still has Spring-boot related growing-pains).  A copy of the server JAR file has been provided in the demo package. You can run it locally, in a Docker container (including Kubernetes or even Mini-kube), or on a separate server.
+
+### Running Axon Server locally
+
+To run Axon Server locally, all you need to do is put the server JAR file in the directory where you want it to live, and start it using:
+
+```
+java -jar axonserver-4.0-RC1.jar
+```
+
+You will see that it creates a subdirectory `data` where it will store its information.
+
+### Running the credit card app
 
 The simplest way to run the app is by using the Spring-boot maven plugin:
 
@@ -96,11 +112,15 @@ A simple UX has been implemented in Vaadin and available at:
 http://localhost:8080
 ```
 
+
 # REST
 
 ## Swagger URL
 
     http://localhost:8080/swagger-ui.html
+
+
+# CURL test
 
 ### Get all credit cards
 
@@ -118,7 +138,7 @@ http://localhost:8080
 	--header 'content-type: application/json'  \
 	--data '1'
 
-### Get all events
+### Get all events from the Event Store
 
     curl --request GET  --url http://localhost:8080/events/s
 
@@ -161,19 +181,7 @@ To run the Creditcard app as if it were three seperate micro-services, use the S
 This will start only the command part. To complete the app, open two other command shells, and start one with profile `query`, and the last one with `gui`. Again you can open the Web GUI at [`http://localhost:8080`](http://localhost:8080). The three parts of the application work together through the running instance of the Axon Server, which distributes the Commands, Queries, and Events.
 
 
-# Running Axon Server
 
-By default the Axon Framework is configured to expect a running Axon Server instance, and it will complain if the server is not found. To run Axon Server, you'll need a Java runtime (JRE versions 8 through 10 are currently supported, Java 11 still has Spring-boot related growing-pains).  A copy of the server JAR file has been provided in the demo package. You can run it locally, in a Docker container (including Kubernetes or even Mini-kube), or on a separate server.
-
-### Running Axon Server locally
-
-To run Axon Server locally, all you need to do is put the server JAR file in the directory where you want it to live, and start it using:
-
-```
-java -jar axonserver-4.0-RC1.jar
-```
-
-You will see that it creates a subdirectory `data` where it will store its information.
 
 ### Running Axon Server in a Docker container
 
