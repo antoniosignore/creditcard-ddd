@@ -1,1 +1,0 @@
-java -Dspring.profiles.active=query -jar creditcard-distributed-1.0.jar

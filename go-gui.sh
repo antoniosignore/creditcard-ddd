@@ -1,1 +1,0 @@
-java -Dspring.profiles.active=gui -Dserver.port=9090 -jar target/creditcard-ddd-1.0.jar
