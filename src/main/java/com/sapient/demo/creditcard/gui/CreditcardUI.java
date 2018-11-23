@@ -109,8 +109,8 @@ public class CreditcardUI extends UI {
 
     private Panel purchasePanel() {
         TextField id = new TextField("Credit Card Number");
-        // TextField name = new TextField("Name");
-        TextField creditLimitValue = new TextField("Purchase value");
+        TextField name = new TextField("Name");
+        TextField creditLimitValue = new TextField("Credit Limit value");
         Button submit = new Button("Submit");
 
         submit.addClickListener(evt -> {
@@ -120,7 +120,7 @@ public class CreditcardUI extends UI {
         });
 
         FormLayout form = new FormLayout();
-        form.addComponents(id, creditLimitValue, submit);
+        form.addComponents(id, name, creditLimitValue, submit);
         form.setMargin(true);
 
         Panel panel = new Panel("Purchase with card");

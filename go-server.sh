@@ -1,2 +1,2 @@
 
-java -jar AxonServer/axonserver-4.0.jar
+java -jar axonserver-4.0.jar

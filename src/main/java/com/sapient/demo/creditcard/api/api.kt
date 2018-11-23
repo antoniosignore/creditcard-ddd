@@ -13,6 +13,8 @@ data class IssuedEvt(val id: String, val name: String, val limitValue: Double)
 data class PurchaseCmd(@TargetAggregateIdentifier val id: String, val purchaseValue: Double)
 data class PurchasedEvt(val id: String, val purchaseValue: Double)
 
+data class CancelCmd(@TargetAggregateIdentifier val id: String)
+data class CancelEvt(val id: String)
 
 @Entity
 @NamedQueries(
@@ -24,7 +26,6 @@ data class PurchasedEvt(val id: String, val purchaseValue: Double)
 data class CardSummary(@Id var id: String, var limitValue: Double, var remainingValue: Double, val name: String) {
     constructor() : this("", 0.0, 0.0, "")
 }
-
 
 data class CardSummaryFilter(val idStartsWith: String = "")
 
