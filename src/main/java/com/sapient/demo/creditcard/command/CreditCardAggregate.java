@@ -34,7 +34,7 @@ public class CreditCardAggregate {
     public CreditCardAggregate(IssueCmd cmd) {
         log.debug("handling {}", cmd);
 
-        if (cmd.getLimitValue() <= 0) throw new IllegalArgumentException("remainingValue <= 0");
+        if (cmd.getLimitValue() < 0) throw new IllegalArgumentException("remainingValue <= 0");
         if(cmd.getId().length() >19) throw new IllegalArgumentException("credit card number > 19");
 
         apply(new IssuedEvt(cmd.getId(),cmd.getName(), cmd.getLimitValue()));
