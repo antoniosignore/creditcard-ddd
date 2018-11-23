@@ -110,7 +110,7 @@ public class CreditcardUI extends UI {
     private Panel purchasePanel() {
         TextField id = new TextField("Credit Card Number");
         // TextField name = new TextField("Name");
-        TextField creditLimitValue = new TextField("Credit Limit value");
+        TextField creditLimitValue = new TextField("Purchase value");
         Button submit = new Button("Submit");
 
         submit.addClickListener(evt -> {
