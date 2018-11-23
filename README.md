@@ -121,11 +121,11 @@ Note that for Mac OSX or Linux you probably have to add "`./`" in front of `mvnw
 
 # Running the Credit Card app
 
-# Quick start
+## Quick build start
 
     ./mvnw clean install
     ./go-server.sh
-    ./go-/sh
+    ./go.sh
     http://localhost:8080
    
 
