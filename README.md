@@ -83,10 +83,7 @@ Kotlin is particularly effective to provide in very concise way all the commands
 
 ### EventSourcing
 
-Axon server
-
-
-I adoped the default embedded EventSource provided by Axon to keep it simple
+I adoped the default embedded EventSource provided by Axon Servers
 
 ### TEST FIRST
 
@@ -97,11 +94,6 @@ be expected.
     io/axoniq/labs/game/commandmodel/CreditCardAggregateTest.java
 
 Warning: test with given older events are not working yet with the external event store (working with Axon people to solve the issue) 
-
-## Microservices decomposition
-
-The app can be run in various modes, using [Spring-boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html): by selecting a specific profile, only the corresponding parts of the app will be active. Select none, and the default behaviour is activated, which activates everything. This way you can experiment with Axon in a (structured) monolith as well as in micro-services.
-
 
 ## Background story
 
@@ -128,6 +120,14 @@ Note that for Mac OSX or Linux you probably have to add "`./`" in front of `mvnw
 
 
 # Running the Credit Card app
+
+# Quick start
+
+    ./mvnw clean install
+    ./go-server.sh
+    ./go-/sh
+    http://localhost:8080
+   
 
 ### Running Axon Server
 
@@ -250,7 +250,9 @@ http://localhost:8080
     }]
 
 
-# Microservices - Todo
+# Microservices decomposition
+
+The app can be run in various modes, using [Spring-boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html): by selecting a specific profile, only the corresponding parts of the app will be active. Select none, and the default behaviour is activated, which activates everything. This way you can experiment with Axon in a (structured) monolith as well as in micro-services.
 
 The Web GUI can be found at [`http://localhost:8080`](http://localhost:8080).
 
