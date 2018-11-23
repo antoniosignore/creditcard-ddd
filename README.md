@@ -1,20 +1,48 @@
 # Getting started with Credit card demo
 
-This Axon Framework demo application focuses around a simple creditcard domain, designed to show various aspects of the framework. The app can be run in various modes, using [Spring-boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html): by selecting a specific profile, only the corresponding parts of the app will be active. Select none, and the default behaviour is activated, which activates everything. This way you can experiment with Axon in a (structured) monolith as well as in micro-services.
+This Axon Framework demo application focuses around a simple creditcard domain, designed to show various aspects of the framework. 
 
-### Where to find more information:
 
-* The [Axon Reference Guide](https://docs.axoniq.io/reference-guide/) is definitive guide on the Axon Framework and Axon Server.
-* Visit [www.axoniq.io](https://www.axoniq.io) to find out about AxonIQ, the team behind the Axon Framework and Server.
-* Subscribe to the [AxonIQ Youtube channel](https://www.youtube.com/AxonIQ) to get the latest Webinars, announcements, and customer stories.
-* Docker images for Axon Server are pushed to [Docker Hub](https://hub.docker.com/u/axoniq).
 
 # The Credit Card app
 
+
+The goal here is to demonstrate the possible implementation of the simple Credit Card code test by DDD, CQRS and EventSourcing patterns.
+
+The framework selected is the Axon framework 
+
+Its main winning point is the approach that the developer needs to follow in order to arrive to a solution:
+
+The programmer must think in terms of the business model trying immediately to decide what is the Root Aggregate
+of the problem and then in Test First fashion MUST approach the problem in terms of Command that can be sent that
+may have an impact on the State of the aggregate and MUST think in terms of the events that MUST be generated.
+
+The framework then offers a rich set of Annotations that drive the developer towards the solution and most importantly
+developing starting with a MONOLITH.
+
+As Martin Fowler wrote: most of the failures in microservices projects are projects where the developers started immediately in distributed fashion.
+
+Success happens when teams started with a monolith and then as required partioned pieces of logic as needed along the project life.
+
+Because Axos adopts the location transarency then it is only after that the business logic has been implemented
+that it is possible to fragment the monolith and deploy separately the command component and the query component.
+
+Also it offers a vast choice of technologies that can be used to implement the event sourcing/us (i.e. Kafka, ActiveMQ, RabbitMq)
+as well DataSources SQL and/or NO_Sql for the Query model projections and/or the validation side of the CommandModel
+
+For particular test I have used the Axon Server (recently announced on the 18th of October) as event bus and events db to implement the CQRS Event Sourcing and the Event driven pattern.
+
+
+## Microservices decomposition
+
+The app can be run in various modes, using [Spring-boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html): by selecting a specific profile, only the corresponding parts of the app will be active. Select none, and the default behaviour is activated, which activates everything. This way you can experiment with Axon in a (structured) monolith as well as in micro-services.
+
+
 ## Background story
 
-* They get _issued_: a new credit card gets created with some amount of money as credit limit.
-* They get _purchased_: all or part of the monetary value stored on the credit card is used to purchase something.
+* Credit card can be issued: a new credit card gets created with some amount of money as credit limit.
+* Credit cards can be _purchased_: all or part of the monetary value stored on the credit card is used to purchase something.
+
 
 ### Structure of the App
 The Credit card application is split into four parts, using four sub-packages of `io.axoniq.demo.creditcard`:
@@ -47,7 +75,7 @@ Note that for Mac OSX or Linux you probably have to add "`./`" in front of `mvnw
 The simplest way to run the app is by using the Spring-boot maven plugin:
 
 ```
-mvnw spring-boot:run
+./mvnw spring-boot:run
 ```
 However, if you have copied the jar file `creditcard-distributed-1.0.jar` from the Maven `target` directory to some other location, you can also start it with:
 
