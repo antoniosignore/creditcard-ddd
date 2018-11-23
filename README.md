@@ -184,15 +184,9 @@ http://localhost:8080
 
 ### Get all events from the Event Store
 
-    curl --request GET  --url http://localhost:8080/events/s
+    curl --request GET  --url http://localhost:8080/events/34345678900666
 
 
-
-However, if you have copied the jar file `creditcard-distributed-1.0.jar` from the Maven `target` directory to some other location, you can also start it with:
-
-```
-java -jar creditcard-distributed-1.0.jar
-```
 
 The Web GUI can be found at [`http://localhost:8080`](http://localhost:8080).
 
