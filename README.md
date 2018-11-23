@@ -186,7 +186,71 @@ http://localhost:8080
 
     curl --request GET  --url http://localhost:8080/events/34345678900666
 
+    [{
+        "type": "CreditCardAggregate",
+        "aggregateIdentifier": "1",
+        "sequenceNumber": 0,
+        "identifier": "0fc2570f-f6c1-4cc0-810d-8feff3584bc9",
+        "timestamp": "2018-11-23T12:00:27.246Z",
+        "metaData": {
+            "traceId": "a54252f1-eea4-45b8-baf7-47431f61c7b8",
+            "correlationId": "a54252f1-eea4-45b8-baf7-47431f61c7b8"
+        },
+        "payload": {
+            "id": "1",
+            "name": "a",
+            "limitValue": 10.0
+        },
+        "payloadType": "com.sapient.demo.creditcard.api.IssuedEvt"
+    }, {
+        "type": "CreditCardAggregate",
+        "aggregateIdentifier": "1",
+        "sequenceNumber": 1,
+        "identifier": "dd51287f-01bd-434a-bc24-837b24a35092",
+        "timestamp": "2018-11-23T12:00:32.345Z",
+        "metaData": {
+            "traceId": "b2813818-5886-4de1-a845-6781ff2faa65",
+            "correlationId": "b2813818-5886-4de1-a845-6781ff2faa65"
+        },
+        "payload": {
+            "id": "1",
+            "purchaseValue": 1.0
+        },
+        "payloadType": "com.sapient.demo.creditcard.api.PurchasedEvt"
+    }, {
+        "type": "CreditCardAggregate",
+        "aggregateIdentifier": "1",
+        "sequenceNumber": 2,
+        "identifier": "d00d72c0-d73a-4179-b2df-6142ac5ffe7b",
+        "timestamp": "2018-11-23T12:01:48.470Z",
+        "metaData": {
+            "traceId": "7ad0eb5f-4cf5-41f4-a085-1f31b338963a",
+            "correlationId": "7ad0eb5f-4cf5-41f4-a085-1f31b338963a"
+        },
+        "payload": {
+            "id": "1",
+            "purchaseValue": 1.0
+        },
+        "payloadType": "com.sapient.demo.creditcard.api.PurchasedEvt"
+    }, {
+        "type": "CreditCardAggregate",
+        "aggregateIdentifier": "1",
+        "sequenceNumber": 3,
+        "identifier": "38636cf5-714f-487d-bb6c-d6b7f46088a4",
+        "timestamp": "2018-11-23T12:03:53.459Z",
+        "metaData": {
+            "traceId": "a6dd716f-c16c-47dd-a3b3-4fecaf19e42b",
+            "correlationId": "a6dd716f-c16c-47dd-a3b3-4fecaf19e42b"
+        },
+        "payload": {
+            "id": "1",
+            "purchaseValue": 1.0
+        },
+        "payloadType": "com.sapient.demo.creditcard.api.PurchasedEvt"
+    }]
 
+
+# Microservices - Todo
 
 The Web GUI can be found at [`http://localhost:8080`](http://localhost:8080).
 
