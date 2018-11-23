@@ -1,1 +1,1 @@
-java -Dspring.profiles.active=gui -jar creditcard-distributed-1.0.jar
+java -Dspring.profiles.active=gui -Dserver.port=9090 -jar target/creditcard-ddd-1.0.jar

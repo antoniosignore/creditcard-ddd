@@ -3,7 +3,6 @@ package com.sapient.demo.creditcard.rest;
 import com.sapient.demo.creditcard.api.IssueCmd;
 import com.sapient.demo.creditcard.api.PurchaseCmd;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.springframework.context.annotation.Profile;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +13,6 @@ import javax.validation.Valid;
 import java.util.concurrent.Future;
 
 @RestController
-@Profile("rest")
 public class CreditCardCommandController {
 
     private final CommandGateway commandGateway;

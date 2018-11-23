@@ -8,7 +8,6 @@ import com.sapient.demo.creditcard.api.PurchasedEvt;
 import com.sapient.demo.creditcard.command.CreditCardAggregate;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class CreditCardAggregateTest {
@@ -47,25 +46,21 @@ public class CreditCardAggregateTest {
                 .expectNoEvents().expectException(IllegalArgumentException.class);
     }
 
-    // TODO add embedded db server to run this test
-    @Ignore
     @Test
     public void test_purchase_with_credit_card_with_100_limit() {
         final PurchaseCmd purchase = new PurchaseCmd("123", 10);
         testFixture
-                .given(new IssueCmd("123", "me", 100))
+                .given(new IssuedEvt("123", "me", 100))
                 .when(purchase)
                 .expectEvents(new PurchasedEvt("123", 10));
     }
 
-    // TODO add embedded db server to run this test
-    @Ignore
     @Test
     public void test_purchase_negative_value() {
         final PurchaseCmd purchase = new PurchaseCmd("123", -10);
 
         testFixture
-                .given(new IssueCmd("123", "me", 100))
+                .given(new IssuedEvt("123", "me", 100))
                 .when(purchase)
                 .expectNoEvents().expectException(IllegalArgumentException.class);
     }

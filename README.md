@@ -45,6 +45,59 @@ Axon offers a vast choice of adapters/bus technologies that can be select to rea
 For particular test I have used the Axon Server (recently announced on the 18th of October) as event bus and events db to implement the CQRS Event Sourcing and the Event driven pattern.
 
 
+### AGGREGATE
+
+Decide what is the Root Aggregate: in this example it is clearly the Game and then attached to it the players, the current latest number and so on.
+
+The Aggregate is implemented in:
+
+    CreditCardAggregate.java
+
+This is a clear example of a Non-Anemic model implementation: the class repreenting the data includes also business logic.
+
+# Structure of the App
+
+The Credit card application is split into four parts, using four sub-packages of `com/sapient/demo/creditcard`:
+* The `api` package contains the ([Kotlin](https://kotlinlang.org/)) sourcecode of the messages and entity. They form the API (sic) of the application.
+* The `command` package contains the Creditcard Aggregate class, with all command- and associated eventsourcing handlers.
+* The `query` package provides the query handlers, with their associated event handlers.
+* The `gui` package contains the [Vaadin](https://vaadin.com/)-based Web GUI.
+
+### Command/Events as messages.  
+
+Define in one Kotlin  file the command and events that mode the state of the system:
+
+    com/sapient/demo/creditcard/api/api.kt
+
+Kotlin is particularly effective to provide in very concise way all the commands and events in the system.
+
+### Command and Query models
+
+    com/sapient/demo/creditcard/command  
+    com/sapient/demo/creditcard/query
+
+### GUI
+
+    com/sapient/demo/creditcard/gui
+
+
+### EventSourcing
+
+Axon server
+
+
+I adoped the default embedded EventSource provided by Axon to keep it simple
+
+### TEST FIRST
+
+Axon provide test fictures that allow the user to write tests in given()/when()/expect() fashion which is
+formidable because allows the programmer to write the tests thinking about commands and events (or error) to
+be expected.
+
+    io/axoniq/labs/game/commandmodel/CreditCardAggregateTest.java
+
+Warning: test with given older events are not working yet with the external event store (working with Axon people to solve the issue) 
+
 ## Microservices decomposition
 
 The app can be run in various modes, using [Spring-boot Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html): by selecting a specific profile, only the corresponding parts of the app will be active. Select none, and the default behaviour is activated, which activates everything. This way you can experiment with Axon in a (structured) monolith as well as in micro-services.
@@ -55,14 +108,6 @@ The app can be run in various modes, using [Spring-boot Profiles](https://docs.s
 * Credit card can be issued: a new credit card gets created with some amount of money as credit limit.
 * Credit cards can be _purchased_: all or part of the monetary value stored on the credit card is used to purchase something.
 
-
-### Structure of the App
-
-The Credit card application is split into four parts, using four sub-packages of `io.axoniq.demo.creditcard`:
-* The `api` package contains the ([Kotlin](https://kotlinlang.org/)) sourcecode of the messages and entity. They form the API (sic) of the application.
-* The `command` package contains the Creditcard Aggregate class, with all command- and associated eventsourcing handlers.
-* The `query` package provides the query handlers, with their associated event handlers.
-* The `gui` package contains the [Vaadin](https://vaadin.com/)-based Web GUI.
 
 Of these packages, `command`, `query`, and `gui` are also configured as profiles.
 
@@ -119,7 +164,6 @@ http://localhost:8080
 
     http://localhost:8080/swagger-ui.html
 
-
 # CURL test
 
 ### Get all credit cards
@@ -171,6 +215,8 @@ $ java -Dspring.profiles.active=command -jar creditcard-distributed-1.0.jar
 This will start only the command part. To complete the app, open two other command shells, and start one with profile `query`, and the last one with `gui`. Again you can open the Web GUI at [`http://localhost:8080`](http://localhost:8080). The three parts of the application work together through the running instance of the Axon Server, which distributes the Commands, Queries, and Events.
 
 
+# FUTURE DEVELOPMENT (not tested yer)
+
 ### Running the Creditcard app as micro-services
 
 To run the Creditcard app as if it were three seperate micro-services, use the Spring-boot `spring.profiles.active` option as follows:
@@ -179,8 +225,6 @@ To run the Creditcard app as if it were three seperate micro-services, use the S
         $ java -Dspring.profiles.active=command -jar creditcard-distributed-1.0.jar
     ```
 This will start only the command part. To complete the app, open two other command shells, and start one with profile `query`, and the last one with `gui`. Again you can open the Web GUI at [`http://localhost:8080`](http://localhost:8080). The three parts of the application work together through the running instance of the Axon Server, which distributes the Commands, Queries, and Events.
-
-
 
 
 ### Running Axon Server in a Docker container
