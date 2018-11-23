@@ -1,9 +1,9 @@
 package com.sapient.demo.creditcard.gui;
 
 import com.sapient.demo.creditcard.api.*;
-import com.vaadin.server.Page;
 import com.vaadin.annotations.Push;
 import com.vaadin.server.DefaultErrorHandler;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
@@ -109,7 +109,7 @@ public class CreditcardUI extends UI {
 
     private Panel purchasePanel() {
         TextField id = new TextField("Credit Card Number");
-        TextField name = new TextField("Name");
+        // TextField name = new TextField("Name");
         TextField creditLimitValue = new TextField("Credit Limit value");
         Button submit = new Button("Submit");
 
@@ -120,7 +120,7 @@ public class CreditcardUI extends UI {
         });
 
         FormLayout form = new FormLayout();
-        form.addComponents(id, name, creditLimitValue, submit);
+        form.addComponents(id, creditLimitValue, submit);
         form.setMargin(true);
 
         Panel panel = new Panel("Purchase with card");

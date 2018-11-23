@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.UUID;
 import java.util.concurrent.Future;
 
 @RestController
@@ -28,7 +27,7 @@ public class CreditCardCommandController {
     public Future<String> createCreditCard(@RequestBody @Valid CreditCardValueBean creditCard) {
 
         Assert.notNull(creditCard.getName(), "name is mandatory for credit card");
-        Assert.notNull(creditCard.getId(), "Number is mandatory for game");
+        Assert.notNull(creditCard.getId(), "Number is mandatory for credit card");
         Assert.notNull(creditCard.getCreditLimit(), "Credit limit is mandatory for credit card");
 
         return commandGateway.send(
