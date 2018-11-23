@@ -1,34 +1,46 @@
-# Getting started with Credit card demo
+# The Credit Card code test
 
-This Axon Framework demo application focuses around a simple creditcard domain, designed to show various aspects of the framework. 
+# The cloud context
 
+In the project [Credit cards tiers](https://github.com/antoniosignore/credit-card-tiers) we have provided a solution of the trivial credit card CRUD (partial) test in stacked layer traditional fashion.
 
+In software engineering, multitier architecture (often referred to as n-tier architecture) or multilayered architecture is a client–server architecture in which presentation, business logic, and data management functions are physically separated.
 
-# The Credit Card app
+Scalability happens by multiple deployments in parallel of the whole monolith application.
 
+In recents years new alternative architectural patterns have emerged thanks to the some pioneering companies (netflix, uber, airbnb) that have open sourced internal projects designed to exploit the benefit of cloud technologies.
 
-The goal here is to demonstrate the possible implementation of the simple Credit Card code test by DDD, CQRS and EventSourcing patterns.
+Application from monolith become distributed and that required a mentality shift about how to:
 
-The framework selected is the Axon framework 
+* how the business problems are approached:  DDD / CQRS 
+* how the software teams are organized:  Agile/ Scrum and/or Kanban  
+* how the software is built, tested integrated and quickly deploied: CI/CD infrastructure
+* how the clouds are created and managed: Terraform, Kubernetes, Istio  
+ 
+There is a general consent in the software community that all the above listed aspects must to fall in place in order to increase the chances of success in microservices application both in case of greenfield applications or digital transformation of monoliths to distributed systems in the cloud.
+   
+ This project focused on the DDD aspect and proposes a CQRS event driven and event sourced implementation to compare it with the monolith tiered approach.
 
-Its main winning point is the approach that the developer needs to follow in order to arrive to a solution:
+The framework selected to help us is the Axon framework produced by a Ducth company called AxonIQ
 
-The programmer must think in terms of the business model trying immediately to decide what is the Root Aggregate
-of the problem and then in Test First fashion MUST approach the problem in terms of Command that can be sent that
-may have an impact on the State of the aggregate and MUST think in terms of the events that MUST be generated.
+Its main feature is the approach that suggests to the developer:  
 
-The framework then offers a rich set of Annotations that drive the developer towards the solution and most importantly
-developing starting with a MONOLITH.
+* the developer must think in terms of the business use cases (Data driven design) and select an language that is tailored and understood by expert domain and developers (ubiquitus language) 
+* identify the bounded contexts in the business organization and identify the Root Aggregates of the data
+* model the bounded contexts to microservices (i.e. one microservice per bounded context) sometimes also referred as Actor model 
+* model the problem in terms of state change commands that can be sent to each microservices and publish the immutable events to an event sourcing DB 
+
+The framework then offers a rich set of Annotations that drive the developer towards the solution and most importantly developing starting with a monolith.
 
 As Martin Fowler wrote: most of the failures in microservices projects are projects where the developers started immediately in distributed fashion.
 
-Success happens when teams started with a monolith and then as required partioned pieces of logic as needed along the project life.
+Success happens when teams start with a monolith and then as the project evolves and new bounded contexts emerge the new microservices are added.
 
-Because Axos adopts the location transarency then it is only after that the business logic has been implemented
-that it is possible to fragment the monolith and deploy separately the command component and the query component.
+One of the key properties that Axon offers to achieve this goal is the location transarency: 
 
-Also it offers a vast choice of technologies that can be used to implement the event sourcing/us (i.e. Kafka, ActiveMQ, RabbitMq)
-as well DataSources SQL and/or NO_Sql for the Query model projections and/or the validation side of the CommandModel
+    the developer develop with specific java annotations without bothering about where the other components are located. 
+
+Axon offers a vast choice of adapters/bus technologies that can be select to realize the distribution as well the the event sourcing (i.e. Kafka, ActiveMQ, RabbitMq) as well several dataSources SQL and/or NO_Sql for the Query model projections and/or the validation side of the CommandModel
 
 For particular test I have used the Axon Server (recently announced on the 18th of October) as event bus and events db to implement the CQRS Event Sourcing and the Event driven pattern.
 
@@ -45,6 +57,7 @@ The app can be run in various modes, using [Spring-boot Profiles](https://docs.s
 
 
 ### Structure of the App
+
 The Credit card application is split into four parts, using four sub-packages of `io.axoniq.demo.creditcard`:
 * The `api` package contains the ([Kotlin](https://kotlinlang.org/)) sourcecode of the messages and entity. They form the API (sic) of the application.
 * The `command` package contains the Creditcard Aggregate class, with all command- and associated eventsourcing handlers.
@@ -57,8 +70,7 @@ Of these packages, `command`, `query`, and `gui` are also configured as profiles
 
 For Intellij Add the annotation processor for Lombok 
 
-    File/Settings/Annotation processor  
-    Checkbox: Enable annotation processor
+    File/Settings/Annotation processor  -->  Make sure the checkbox: Enable annotation processor is selected.
 
 ### Building the Credit Card app from the sources
 
@@ -77,6 +89,41 @@ The simplest way to run the app is by using the Spring-boot maven plugin:
 ```
 ./mvnw spring-boot:run
 ```
+
+A simple UX has been implemented in Vaadin and available at:
+
+```
+http://localhost:8080
+```
+
+# REST
+
+## Swagger URL
+
+    http://localhost:8080/swagger-ui.html
+
+### Get all credit cards
+
+    curl --request GET  --url http://localhost:8080/creditcards --header 'content-type: application/json'
+
+### Create a credit card
+	
+	curl --request POST  --url http://localhost:8080/creditcards \
+	--header 'content-type: application/json'  \
+	--data '{"creditLimit": 1000,"id": "34345678900666","name": "antonio"}'
+
+### Make a purchase with the credit card
+	
+	curl --request POST  --url http://localhost:8080/creditcards/s/purchase \
+	--header 'content-type: application/json'  \
+	--data '1'
+
+### Get all events
+
+    curl --request GET  --url http://localhost:8080/events/s
+
+
+
 However, if you have copied the jar file `creditcard-distributed-1.0.jar` from the Maven `target` directory to some other location, you can also start it with:
 
 ```
@@ -91,6 +138,8 @@ If you want to activate only the `command` profile, use:
 java -Dspring.profiles.active=command creditcard-distributed-1.0.jar
 ```
 Idem for `query` and `gui`.
+
+
 
 ### Running the Credit Card app as micro-services
 
@@ -208,8 +257,7 @@ kind: Service
 
 Use "`axonserver`" (as that is the name of the Kubernetes service) if you're going to deploy the client next to the server in the cluster, which is what you'ld probably want. Running the client outside the cluster, with Axon Server *inside*, entails extra work to enable and secure this, and is definitely beyond the scope of this example.
 
-Configuring Axon Server
------------------------
+# Configuring Axon Server
 
 Axon Server uses sensible defaults for all of its settings, so it will actually run fine without any further configuration. However, if you want to make some changes, below are the most common options.
 
@@ -277,28 +325,4 @@ Axon Server provides two servers; one serving HTTP requests, the other gRPC. By 
 
 The HTTP server has in its root context a management Web GUI, a health indicator is available at `/actuator/health`, and the REST API at `/v1`. The API's Swagger endpoint finally, is available at `/swagger-ui.html`, and gives the documentation on the REST API.
 
-# REST
 
-## Swagger URL
-
-    http://localhost:8080/swagger-ui.html
-
-### Get all credit cards
-
-    curl --request GET  --url http://localhost:8080/creditcards --header 'content-type: application/json'
-
-### Create a credit card
-	
-	curl --request POST  --url http://localhost:8080/creditcards \
-	--header 'content-type: application/json'  \
-	--data '{"creditLimit": 1000,"id": "34345678900666","name": "antonio"}'
-
-### Make a purchase with the credit card
-	
-	curl --request POST  --url http://localhost:8080/creditcards/s/purchase \
-	--header 'content-type: application/json'  \
-	--data '1'
-
-### Get all events
-
-    curl --request GET  --url http://localhost:8080/events/s
