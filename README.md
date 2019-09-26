@@ -25,7 +25,7 @@ The framework selected to help us is the Axon framework produced by a Ducth comp
 
 Its main feature is the approach that suggests to the developer:  
 
-* the developer must think in terms of the business use cases (Data driven design) and select an language that is tailored and understood by expert domain and developers (ubiquitus language) 
+* the developer must think in terms of the business use cases (Domain driven design) and select an language that is tailored and understood by expert domain and developers (ubiquitus language) 
 * identify the bounded contexts in the business organization and identify the Root Aggregates of the data
 * model the bounded contexts to microservices (i.e. one microservice per bounded context) sometimes also referred as Actor model 
 * model the problem in terms of state change commands that can be sent to each microservices and publish the immutable events to an event sourcing DB 
@@ -46,8 +46,6 @@ For particular test I have used the Axon Server (recently announced on the 18th 
 
 
 ### AGGREGATE
-
-Decide what is the Root Aggregate: in this example it is clearly the Game and then attached to it the players, the current latest number and so on.
 
 The Aggregate is implemented in:
 
@@ -165,10 +163,6 @@ http://localhost:8080
     http://localhost:8080/swagger-ui.html
 
 # CURL test
-
-### Get all credit cards
-
-    curl --request GET  --url http://localhost:8080/creditcards --header 'content-type: application/json'
 
 ### Create a credit card
 	
