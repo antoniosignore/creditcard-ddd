@@ -31,7 +31,7 @@
 
 		<vaadin.version>8.2.0</vaadin.version>
         <lombok.version>1.18.4</lombok.version>
-		<guava.version>27.0-jre</guava.version>
+		<guava.version>29.0-jre</guava.version>
 
 	</properties>
 
